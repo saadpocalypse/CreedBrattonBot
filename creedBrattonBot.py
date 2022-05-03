@@ -1,8 +1,8 @@
-import praw
-import random
-import time
+import praw # Reddit's API wrapper.
+import random # To randomly choose a quote.
+import time # To put the bot to sleep.
 
-reddit = praw.Reddit(
+reddit = praw.Reddit( # All the information that goes here will be unique, given to you by Reddit.
     client_id="clientId",
     client_secret="clientSecret",
     user_agent="userAgent",
@@ -10,7 +10,7 @@ reddit = praw.Reddit(
     password = "passWord"
 )
 
-creedQuotes = ["Just pretend like we’re talking until the cops leave.",
+creedQuotes = ["Just pretend like we’re talking until the cops leave.", # An array of quotes by Creed Bratton.
                "Every week, I’m supposed to take four hours and do a quality spot-check at the paper mill. And of "
                "course, the one year I blow it off, this happens.", "Animals can’t feel pain.",
                "He was drunk as a skunk. He was flying down Route 6. He slides under an 18-wheeler. ",
@@ -62,14 +62,14 @@ creedQuotes = ["Just pretend like we’re talking until the cops leave.",
 
 
 
-subreddit = reddit.subreddit("DunderMifflin")
+subreddit = reddit.subreddit("DunderMifflin") # You pass the name of the subreddit as an argument.
 
-for post in subreddit.hot(limit = 10):
-    for comment in post.comments:
-        if hasattr(comment, "body"):
-            commentLower = comment.body.lower()
-            if "creed bratton" in commentLower or:
-                quoteToPrint = creedQuotes[random.randint(0, len(creedQuotes) - 1)]
-                comment.reply(quoteToPrint)
-                time.sleep(700)
+for post in subreddit.hot(limit = 10): # Here I choose ten posts from the 'hot' section of the subreddit.
+    for comment in post.comments: # Here I parse the comments.
+        if hasattr(comment, "body"): # Checking if the comment has a body, if not, the code would've thrown an error.
+            commentLower = comment.body.lower() # We convert the comment to lower case.
+            if "creed bratton" in commentLower: # We check if the comment mentions Creed Bratton.
+                quoteToPrint = creedQuotes[random.randint(0, len(creedQuotes) - 1)] # A quote is chosen at random from the array.
+                comment.reply(quoteToPrint) # The quote is replied with.
+                time.sleep(700) # The bot is put to sleep for 700 seconds.
 
