@@ -1,16 +1,16 @@
-import praw # Reddit's API wrapper.
-import random # To randomly choose a quote.
-import time # To put the bot to sleep.
+import praw  # Reddit's API wrapper.
+import random  # To randomly choose a quote.
+import time  # To put the bot to sleep.
 
-reddit = praw.Reddit( # All the information that goes here will be unique, given to you by Reddit.
+reddit = praw.Reddit(  # All the information that goes here will be unique, given to you by Reddit.
     client_id="clientId",
     client_secret="clientSecret",
     user_agent="userAgent",
-    username = "userName",
-    password = "passWord"
+    username="userName",
+    password="passWord"
 )
 
-creedQuotes = ["Just pretend like we’re talking until the cops leave.", # An array of quotes by Creed Bratton.
+creedQuotes = ["Just pretend like we’re talking until the cops leave.",  # An array of quotes by Creed Bratton.
                "Every week, I’m supposed to take four hours and do a quality spot-check at the paper mill. And of "
                "course, the one year I blow it off, this happens.", "Animals can’t feel pain.",
                "He was drunk as a skunk. He was flying down Route 6. He slides under an 18-wheeler. ",
@@ -24,9 +24,9 @@ creedQuotes = ["Just pretend like we’re talking until the cops leave.", # An a
                "know everyone saw it. Just one stunning gorgeous cartwheel.",
                "It’s pirate code. It means he wants to meet. I understand pirate code. I can’t speak it.",
                "Hello, Creed Bratton, Quality Assurance, Dunder Mifflin, Scranton. I was supposed to meet with one of "
-               "your floor managers last week for a quality inspection, and he or she wasn’t there. I’m trying to "
-               "remember who it was. Who wasn’t there last week?",
-               "Oh really, what kind? Codeine, Vicodin, Percoset, Fentanyl, Oxycontin, Palladone?",
+               "your floor managers last week for a quality inspection, and he or she wasn't there. I’m trying to "
+               "remember who it was. Who wasn't there last week?",
+               "Oh really, what kind? Codeine, Vicodin, Percocet, Fentanyl, Oxycontin, Palladone?",
                "You’re over 40; that’s the cut-off. Are you listening to what he’s saying? Re-training. New system. "
                "Youth. I’m telling you, this kid is the grim reaper.",
                "What is wrong with this woman? She’s asking about stuff that’s nobody’s business. What do I do? "
@@ -38,7 +38,7 @@ creedQuotes = ["Just pretend like we’re talking until the cops leave.", # An a
                "Be cool, Michael. I saw this guy kill a bunch of people.",
                "My tombstone has been already made, thank you.",
                "Two eyes, two ears, a chin, a mouth, 10 fingers, two nipples, a butt, two kneecaps, a penis. I have "
-               "just described to you the Lochness Monster and the reward for its capture…all the riches in Scotland. "
+               "just described to you the Loch Ness Monster and the reward for its capture…all the riches in Scotland. "
                "So I have one question, why are you here?",
                "Let’s keep this on the QT, okay? I want to be a dead mama JAMA.",
                "It’s Creed. FYI I’m starting my own paper company looking to poach some chumps. You in?",
@@ -56,20 +56,17 @@ creedQuotes = ["Just pretend like we’re talking until the cops leave.", # An a
                "The only difference between me and a homeless man is this job. I will do whatever it takes to survive, "
                "just like I did when I was a homeless man.",
                "I run a small fake I.D. company from my car with a laminating machine that I swiped from the sheriff’s "
-               "station.","Did one of you tell Stanley that I have asthma? Cause I don’t. If this gets out, they "
-                          "won’t let me scuba. And if I can’t scuba, what am I working towards?"]
+               "station.", "Did one of you tell Stanley that I have asthma? Cause I don’t. If this gets out, they "
+                           "won’t let me scuba. And if I can’t scuba, what am I working towards?"]
 
+subreddit = reddit.subreddit("DunderMifflin")  # You pass the name of the subreddit as an argument.
 
-
-
-subreddit = reddit.subreddit("DunderMifflin") # You pass the name of the subreddit as an argument.
-
-for post in subreddit.hot(limit = 10): # Here I choose ten posts from the 'hot' section of the subreddit.
-    for comment in post.comments: # Here I parse the comments.
-        if hasattr(comment, "body"): # Checking if the comment has a body, if not, the code would've thrown an error.
-            commentLower = comment.body.lower() # We convert the comment to lower case.
-            if "creed bratton" in commentLower: # We check if the comment mentions Creed Bratton.
-                quoteToPrint = creedQuotes[random.randint(0, len(creedQuotes) - 1)] # A quote is chosen at random from the array.
-                comment.reply(quoteToPrint) # The quote is replied with.
-                time.sleep(700) # The bot is put to sleep for 700 seconds.
-
+for post in subreddit.hot(limit=10):  # Here I choose ten posts from the 'hot' section of the subreddit.
+    for comment in post.comments:  # Here I parse the comments.
+        if hasattr(comment, "body"):  # Checking if the comment has a body, if not, the code would've thrown an error.
+            commentLower = comment.body.lower()  # We convert the comment to lower case.
+            if "creed bratton" in commentLower:  # We check if the comment mentions Creed Bratton.
+                quoteToPrint = creedQuotes[random.randint(0, len(creedQuotes) - 1)]
+                # A quote is chosen at random from the array.
+                comment.reply(quoteToPrint)  # The quote is replied with.
+                time.sleep(700)  # The bot is put to sleep for 700 seconds.
